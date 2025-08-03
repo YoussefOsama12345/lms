@@ -8,6 +8,7 @@ const config = {
   mongoURI: process.env.MONGO_URI,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN,
+  bcryptSaltRounds: parseInt(process.env.BCRYPT_SALT_ROUNDS, 10) || 10,
   email: {
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
