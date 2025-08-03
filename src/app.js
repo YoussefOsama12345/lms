@@ -1,7 +1,20 @@
 const express = require('express');
 const connectDB = require('./config/db');
-const courseRoutes = require('./routes/course.routes');
+const helmet = require('helmet');
+const cors = require('cors');
+const loggerMiddleware = require('./utils/logger');
 const app = express();
+
+// Middleware for parsing JSON requests
+app.use(express.json());
+app.use(loggerMiddleware.httpLogger);
+app.use(loggerMiddleware.morganToWinston);
+app.use(loggerMiddleware.errorLogger);
+app.use(helmet());
+app.use(cors());
+
+// Importing routes
+const courseRoutes = require('./routes/course.routes');
 
 app.use(express.json());
 
