@@ -16,4 +16,4 @@ const config = {
   },
 };
 
-module.exports = { config, DEVELOPMENT, PRODUCTION };
+module.exports = { config };

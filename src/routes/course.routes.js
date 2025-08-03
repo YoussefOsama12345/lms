@@ -3,8 +3,9 @@ const router = express.Router();
 const courseController = require('../controllers/course.controller');
 
 router.get('/courses/get-all-courses', courseController.getAllCourses);
-router.get('/courses/get-course/:id', courseController.getCourseById);
+router.get('/courses/get-course/:courseId', courseController.getCourseById);
 router.post('/courses/create-course', courseController.createCourse);
-router.post('/courses/:id/enroll', courseController.enrollCourse);
-router.put('/courses/update-course/:id', courseController.updateCourse);
-router.delete('/courses/delete-course/:id', courseController.deleteCourse);
+router.put('/courses/update-course/:courseId', courseController.updateCourse);
+router.delete('/courses/delete-course/:courseId', courseController.deleteCourse);
+
+module.exports = router;
