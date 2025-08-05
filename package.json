@@ -1,5 +1,5 @@
 {
-  "name": "codezone",
+  "name": "LMS",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,13 +15,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bull-board/api": "^6.12.0",
+    "@bull-board/express": "^6.12.0",
     "bcrypt": "^6.0.0",
+    "bullmq": "^5.56.9",
     "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
+    "ioredis": "^5.7.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.0",
@@ -35,11 +40,20 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "validator": "^13.15.15",
+    "validatro": "^0.1.10",
     "winston": "^3.17.0"
   },
   "devDependencies": {
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoussefOsama12345/lms.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YoussefOsama12345/lms/issues"
+  },
+  "homepage": "https://github.com/YoussefOsama12345/lms#readme"
 }

@@ -1,4 +1,4 @@
-const Category = require('../models/Catogory.model')
+const Category = require('../models/Category.model')
 
 const getAllCategories = async () => {
   return await Category.find();

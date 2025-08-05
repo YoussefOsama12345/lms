@@ -41,7 +41,11 @@ const config = {
     apiKey: process.env.CLOUDINARY_API_KEY,
     apiSecret: process.env.CLOUDINARY_API_SECRET,
   },
-  
+
+  redis: {
+    redis_url: process.env.REDIS_URL
+  },
+
   email: {
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,

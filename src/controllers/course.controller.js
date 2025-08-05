@@ -74,9 +74,7 @@ const updateCourse = async (req, res) => {
 const deleteCourse = async (req, res) => {
   const { courseId } = req.params;
   try {
-    const validatedData = validateCourse(req.body);
-    validatedData._id = courseId;
-
+    
     const deletedCourse = await courseService.deleteCourse(courseId);
     if (!deletedCourse) {
       return res.status(STATUS_CODES.NOT_FOUND).json({ error: 'Course not found' });

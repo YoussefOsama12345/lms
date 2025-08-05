@@ -1,11 +1,20 @@
-const express = require('express');
 const app = require('./app');
+const {config} = require('./config/env')
 
-// middleware to parse JSON bodies
+const PORT = config.port
 
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`API available at http://localhost:${PORT}/api`);
+});
 
-// Importing routes
+// Graceful error handling
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Promise Rejection:', err);
+  process.exit(1);
+});
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
 });

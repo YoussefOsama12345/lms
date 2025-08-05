@@ -9,15 +9,17 @@ const CategorySchema = new mongoose.Schema({
     unique: true,
     trim: true,
     minlength: [3, "Category name must be at least 3 characters long"],
-    maxlength: [50, "Category name must not exceed 50 characters long"]
+    maxlength: [50, "Category name must not exceed 50 characters long"],
+    match: [/^[a-zA-Z\s]+$/, "Category name must contain only letters and spaces"]
   },
 
   description: {
     type: String,
-    required: [ true, "Category description is required"],
+    required: [true, "Category description is required"],
     trim: true,
     minlength: [10, "Category description must be at least 10 characters long"],
-    maxlength: [500, "Category description must not exceed 500 characters long"]
+    maxlength: [500, "Category description must not exceed 500 characters long"],
+    match: [/^[a-zA-Z\s]+$/, "Category description must contain only letters and spaces"]
   },
 
   status: {
@@ -61,7 +63,7 @@ CategorySchema.pre('save', function(next) {
       .toLowerCase()
       .trim()
       .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, ''); 
+      .replace(/^-|-$/g, '');
   }
   next();
 })

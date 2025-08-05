@@ -7,6 +7,7 @@ const CourseSchema = new mongoose.Schema({
     trim: true,
     minlength: [3, 'Title must be at least 3 characters long'],
     maxlength: [100, 'Title must not exceed 100 characters'],
+    match: [/^[a-zA-Z\s]+$/, "Course name must contain only letters and spaces"]
   },
 
   description: {
@@ -15,6 +16,7 @@ const CourseSchema = new mongoose.Schema({
     trim: true,
     minlength: [10, 'Description must be at least 10 characters long'],
     maxlength: [500, 'Description must not exceed 500 characters'],
+    match: [/^[a-zA-Z\s]+$/, "Course description must contain only letters and spaces"],
   },
 
   price: {
@@ -30,11 +32,11 @@ const CourseSchema = new mongoose.Schema({
     }
   },
 
-  // instructor: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  //   required: [true, 'Instructor is required']
-  // },
+  instructor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Instructor is required']
+  },
 
   level: {
     type: String,
@@ -50,7 +52,7 @@ const CourseSchema = new mongoose.Schema({
   language: {
     type: String,
     default: 'English',
-    maxlength: [30, 'Language must not exceed 30 characters'],
+    maxlength: [30, 'Language must not exceed 30 characters']
   },
 
   thumbnailUrl: {
@@ -58,11 +60,13 @@ const CourseSchema = new mongoose.Schema({
     trim: true,
   },
 
-  tags: [{
-    type: String,
-    trim: true,
-    maxlength: 30
-  }],
+  tags: [
+    {
+      type: String,
+      trim: true,
+      maxlength: 30
+    }
+  ],
 
   isPublished: {
     type: Boolean,
@@ -75,8 +79,8 @@ const CourseSchema = new mongoose.Schema({
 
   rating: {
     type: Number,
-    min: 0,
-    max: 5,
+    min: [0,"rating must be at least 0"],
+    max: [5,"rating must be does not exceeds 5"],
     default: 0,
   },
 
@@ -85,17 +89,7 @@ const CourseSchema = new mongoose.Schema({
     default: 0,
   },
 
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    immutable: true
-  },
-
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+},{timestamps:true});
 
 CourseSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
