@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const hashUtils = require('../utils/hash')
+const hashUtils = require('../utils/hash');
 const ROLES = require('../constants/roles');
 const PROVIDERS = require('../constants/oauth');
 
@@ -13,10 +13,7 @@ const UserSchema = new mongoose.Schema(
       minlength: [3, 'Username must be at least 3 characters'],
       maxlength: [30, 'Username must not exceed 30 characters'],
       trim: true,
-      match: [
-        /^[a-zA-Z0-9_]+$/,
-        'Username can only contain letters, numbers, and underscores',
-      ],
+      match: [/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'],
       validate: {
         validator: function (value) {
           return !/^\d+$/.test(value);
@@ -44,21 +41,21 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       validate: {
         validator: validator.isMobilePhone,
-        message: "Please provide a valid phone number"
-      }
+        message: 'Please provide a valid phone number',
+      },
     },
 
     address: {
       city: {
         type: String,
         trim: true,
-        lowercase: true
+        lowercase: true,
       },
       street: {
         type: String,
         trim: true,
-        lowercase: true
-      }
+        lowercase: true,
+      },
     },
 
     password: {
@@ -67,18 +64,18 @@ const UserSchema = new mongoose.Schema(
       minlength: [6, 'Password must be at least 6 characters'],
       select: false,
       validate: {
-        validator: function(value){
+        validator: function (value) {
           return validator.isStrongPassword(value, {
             minLength: 8,
             minLowercase: 1,
             minUppercase: 1,
             minNumbers: 1,
-            minSymbols: 1
-          })
-
+            minSymbols: 1,
+          });
         },
-        message: 'Password must contain at least 8 characters, including uppercase, lowercase, number, and special character',
-      }
+        message:
+          'Password must contain at least 8 characters, including uppercase, lowercase, number, and special character',
+      },
     },
 
     authProvider: {
@@ -88,14 +85,14 @@ const UserSchema = new mongoose.Schema(
         PROVIDERS.FACEBOOK,
         PROVIDERS.GITHUB,
         PROVIDERS.LINKEDIN,
-        PROVIDERS.LOCAL
+        PROVIDERS.LOCAL,
       ],
-      default: PROVIDERS.LOCAL
+      default: PROVIDERS.LOCAL,
     },
 
     role: {
       type: String,
-      enum: [ROLES.USER ,ROLES.ADMIN ,ROLES.INSTRUCTOR],
+      enum: [ROLES.USER, ROLES.ADMIN, ROLES.INSTRUCTOR],
       default: ROLES.USER,
     },
 
@@ -109,18 +106,18 @@ const UserSchema = new mongoose.Schema(
       default: '',
       trim: true,
       validate: {
-        validator: function(value) {
+        validator: function (value) {
           return (
             value === '' ||
             validator.isURL(value, {
               protocols: ['http', 'https'],
               require_protocol: true,
-              require_valid_protocol: true
+              require_valid_protocol: true,
             })
           );
         },
         message: 'Profile image must be a valid URL with http or https',
-      }
+      },
     },
 
     social: {
@@ -194,19 +191,17 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-
 UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')){
-    return next()
+  if (!this.isModified('password')) {
+    return next();
   }
 
-  this.password = await hashUtils.hashPassword(this.password)
+  this.password = await hashUtils.hashPassword(this.password);
   next();
 });
 
-
 UserSchema.methods.comparePassword = async function (candidatePassword) {
-  return await hashUtils.comparePassword(candidatePassword,this.password);
+  return await hashUtils.comparePassword(candidatePassword, this.password);
 };
 
 const User = mongoose.model('User', UserSchema);

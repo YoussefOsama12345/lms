@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
-const ROUTES = require('../constants/paths');
 
-router.get(ROUTES.USER.GET_ALL_USERS, userController.getAllUsers);
-router.get(ROUTES.USER.GET_USER, userController.getUserById);
-router.put(ROUTES.USER.UPDATE_USER, userController.updateUser);
-router.delete(ROUTES.USER.DELETE_USER, userController.deleteUser);
+router.get('/users/get-all-users', userController.getAllUsers);
+router.get('/users/get-user/:userId', userController.getUserById);
+// router.post('/users/create-user', userController.createUser); // Usually auth register
+router.put('/users/update-user/:userId', userController.updateUser);
+router.delete('/users/delete-user/:userId', userController.deleteUser);
 
 module.exports = router;

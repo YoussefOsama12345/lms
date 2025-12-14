@@ -1,58 +1,59 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const CertificateSchema = new mongoose.Schema({
+const CertificateSchema = new mongoose.Schema(
+  {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'User is required for the certificate']
+      required: [true, 'User is required for the certificate'],
     },
 
     course: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Course',
-      required: [true, 'Course is required for the certificate']
+      required: [true, 'Course is required for the certificate'],
     },
 
     certificateId: {
       type: String,
       required: [true, 'Certificate ID is required'],
       unique: true,
-      trim: true
+      trim: true,
     },
 
     issueDate: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
 
     completionStatus: {
       type: String,
       enum: ['completed', 'incomplete'],
-      default: 'completed'
+      default: 'completed',
     },
 
     grade: {
       type: String,
       trim: true,
       match: [/^[A-F][+-]?$/, 'Invalid grade format'],
-      required: false
+      required: false,
     },
 
     verified: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     downloadUrl: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-const Certificate = mongoose.model('Certificate',CertificateSchema)
+const Certificate = mongoose.model('Certificate', CertificateSchema);
 
-module.exports = Certificate
+module.exports = Certificate;

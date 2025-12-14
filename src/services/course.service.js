@@ -1,25 +1,44 @@
-const Course = require('../models/Course.model');
+const courseRepository = require('../reposatory/course.repository');
 
 const getAllCourses = async () => {
-  return await Course.find();
+  return await courseRepository.findAll({
+    include: {
+      instructor: true,
+      // sections: true, 
+    }
+  });
 };
 
-const getCourseById = async (courseId) => {
-  return await Course.findById(courseId);
+const getCourseById = async courseId => {
+  return await courseRepository.findById(courseId, {
+    include: {
+      instructor: true,
+      sections: {
+        include: {
+          lessons: true
+        }
+      }
+    }
+  });
 };
 
-const createCourse = async (courseData) => {
-  const course = new Course(courseData);
-  await course.save();
-  return course;
+const createCourse = async courseData => {
+  // Ensure strict types
+  if (courseData.price) courseData.price = parseFloat(courseData.price);
+  if (courseData.duration) courseData.duration = parseFloat(courseData.duration);
+
+  return await courseRepository.create(courseData);
 };
 
 const updateCourse = async (courseId, courseData) => {
-  return await Course.findByIdAndUpdate(courseId, courseData, { new: true });
+  if (courseData.price) courseData.price = parseFloat(courseData.price);
+  if (courseData.duration) courseData.duration = parseFloat(courseData.duration);
+
+  return await courseRepository.update(courseId, courseData);
 };
 
-const deleteCourse = async (courseId) => {
-  return await Course.findByIdAndDelete(courseId);
+const deleteCourse = async courseId => {
+  return await courseRepository.remove(courseId);
 };
 
 const courseService = {
@@ -27,7 +46,7 @@ const courseService = {
   getCourseById,
   createCourse,
   updateCourse,
-  deleteCourse
+  deleteCourse,
 };
 
 module.exports = courseService;

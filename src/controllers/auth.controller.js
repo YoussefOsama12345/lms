@@ -1,54 +1,26 @@
-const passport = require('../auth/passport')
+const authService = require('../services/auth.service');
 
-const googleAuth = passport.authenticate('google', {
-  scope: ['profile', 'email']
-});
-
-const googleCallback = passport.authenticate('google', {
-  failureRedirect: '/auth/login-failed',
-  successRedirect: '/auth/profile'
-});
-
-// Facebook Auth
-
-const facebookAuth = passport.authenticate('facebook', {
-  scope: ['email']
-});
-
-const facebookCallback = passport.authenticate('facebook', {
-  failureRedirect: '/auth/login-failed',
-  successRedirect: '/auth/profile'
-});
-
-// GitHub Auth
-const githubAuth = passport.authenticate('github', {
-  scope: ['user:email']
-});
-
-const githubCallback = passport.authenticate('github', {
-  failureRedirect: '/auth/login-failed',
-  successRedirect: '/auth/profile'
-});
-
-// LinkedIn Auth
-const linkedinAuth = passport.authenticate('linkedin', {
-  scope: ['r_emailaddress', 'r_liteprofile']
-});
-
-const linkedinCallback = passport.authenticate('linkedin', {
-  failureRedirect: '/auth/login-failed',
-  successRedirect: '/auth/profile'
-});
-
-const authController = {
-  googleAuth,
-  googleCallback,
-  facebookAuth,
-  facebookCallback,
-  githubAuth,
-  githubCallback,
-  linkedinAuth,
-  linkedinCallback
+const register = async (req, res) => {
+    try {
+        const user = await authService.register(req.body);
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
 
-module.exports = authController;
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const { user, token } = await authService.login(email, password);
+        res.status(200).json({ user, token });
+    } catch (error) {
+        res.status(401).json({ message: error.message });
+    }
+};
+
+module.exports = {
+    register,
+    login,
+    // logout // Add if needed
+};

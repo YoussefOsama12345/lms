@@ -1,11 +1,9 @@
-const express = require('express')
-const router = express.Router()
-const ROUTES = require('../constants/paths')
-const enrollmentController = require('../controllers/enrollment.controller')
+const express = require('express');
+const router = express.Router();
+const enrollmentController = require('../controllers/enrollment.controller');
 
-
-router.post('/enrollments', enrollmentController.enrollUser);
-router.get('/enrollments/my', enrollmentController.getUserEnrollments);
-router.get('/enrollments/:courseId/check', enrollmentController.checkEnrollment);
+router.post('/enrollments/enroll/:courseId', enrollmentController.enrollUser);
+router.get('/enrollments/user/:userId', enrollmentController.getUserEnrollments);
+router.get('/enrollments/cancel/:courseId', enrollmentController.checkEnrollment); // Keeping controller method checkEnrollment mapped to CANCEL path key as per original file
 
 module.exports = router;

@@ -1,63 +1,64 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const AssignmentSchema = new mongoose.Schema({
-   title : {
+const AssignmentSchema = new mongoose.Schema(
+  {
+    title: {
       type: String,
-      required: [true,"title field is required"],
+      required: [true, 'title field is required'],
       unique: true,
       trim: true,
-      minlength: [3,'Assignment name must be at least 3 characters'],
-      maxlength: [50,'Assignment name must be at most 50 characters'],
-      match: [/^[a-zA-Z\s]+$/, "Assignment title must contain only letters and spaces"]
-   },
+      minlength: [3, 'Assignment name must be at least 3 characters'],
+      maxlength: [50, 'Assignment name must be at most 50 characters'],
+      match: [/^[a-zA-Z\s]+$/, 'Assignment title must contain only letters and spaces'],
+    },
 
-   description: {
+    description: {
       type: String,
-      required: [true,"description field is required"],
+      required: [true, 'description field is required'],
       trim: true,
-      minlength: [10,"Assignment description must be at least 10 characters"],
-      maxlength: [500,"Assignment description must be at most 500 characters"],
-      match: [/^[a-zA-Z\s]+$/, "Assignment description must contain only letters and spaces"]
-   },
+      minlength: [10, 'Assignment description must be at least 10 characters'],
+      maxlength: [500, 'Assignment description must be at most 500 characters'],
+      match: [/^[a-zA-Z\s]+$/, 'Assignment description must contain only letters and spaces'],
+    },
 
-   course: {
+    course: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
-      required: [true,"Assignment must belong to a course"]
-   },
+      ref: 'Course',
+      required: [true, 'Assignment must belong to a course'],
+    },
 
-   instructor: {
+    instructor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true,"Instructor is required"]
-   },
+      ref: 'User',
+      required: [true, 'Instructor is required'],
+    },
 
-   dueDate: {
+    dueDate: {
       type: Date,
-      required: [true,"Due date is required"]
-   },
+      required: [true, 'Due date is required'],
+    },
 
-   totalMarks: {
+    totalMarks: {
       type: Number,
-      required: [true,"total marks is required"],
-      min: [1,"Total marks must be at least 1"],
-      max: [1000,"Total marks must not exceed 1000"]
-   },
+      required: [true, 'total marks is required'],
+      min: [1, 'Total marks must be at least 1'],
+      max: [1000, 'Total marks must not exceed 1000'],
+    },
 
-   attachments: [
+    attachments: [
       {
         fileName: String,
         fileUrl: String,
         uploadedAt: {
           type: Date,
-          default: Date.now
-        }
-      }
-   ],
+          default: Date.now,
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
-},{timestamps: true})
+const Assignment = mongoose.model('Assignment', AssignmentSchema);
 
-
-const Assignment = mongoose.model('Assignment',AssignmentSchema)
-
-module.exports = Assignment
+module.exports = Assignment;

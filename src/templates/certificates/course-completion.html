@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Certificate of Completion · CodeZone LMS</title>
+    <style>
+      /* Canvas */
+      body {
+        margin: 0;
+        padding: 40px;
+        background: #f4f6fb;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: #0f172a;
+      }
+
+      .sheet {
+        max-width: 1056px; /* ~ A4 landscape safe width */
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 20px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Decorative frame */
+      .frame {
+        position: relative;
+        padding: 36px;
+        border-radius: 18px;
+        background:
+          linear-gradient(#ffffff, #ffffff) padding-box,
+          linear-gradient(135deg, #4f46e5, #6366f1) border-box;
+        border: 4px solid transparent;
+      }
+
+      .inner-frame {
+        padding: 36px;
+        border-radius: 14px;
+        background:
+          linear-gradient(#ffffff, #ffffff) padding-box,
+          linear-gradient(135deg, #6366f1, #4f46e5) border-box;
+        border: 1px dashed transparent;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand img {
+        height: 40px;
+        width: auto;
+        display: block;
+      }
+
+      .brand-name {
+        font-weight: 800;
+        font-size: 18px;
+        color: #4f46e5;
+        letter-spacing: 0.4px;
+      }
+
+      .badge {
+        padding: 8px 14px;
+        border-radius: 9999px;
+        font-weight: 700;
+        font-size: 12px;
+        color: #fff;
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+      }
+
+      /* Title */
+      .title {
+        text-align: center;
+        margin: 8px 0 12px;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 40px;
+        line-height: 1.15;
+        font-weight: 900;
+        letter-spacing: 0.6px;
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #64748b;
+        margin: 6px 0 0;
+        font-size: 14px;
+      }
+
+      /* Recipient */
+      .recipient {
+        text-align: center;
+        margin: 28px 0 22px;
+      }
+
+      .recipient .label {
+        color: #6b7280;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .recipient .name {
+        margin: 10px 0 0;
+        font-size: 34px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      .rule {
+        width: 320px;
+        height: 2px;
+        background: #e5e7eb;
+        margin: 14px auto 0;
+        border-radius: 2px;
+      }
+
+      /* Course */
+      .course {
+        text-align: center;
+        margin: 24px 0;
+      }
+
+      .course .text {
+        color: #334155;
+        font-size: 16px;
+      }
+
+      .course .title {
+        margin-top: 10px;
+        font-size: 22px;
+        font-weight: 800;
+        color: #111827;
+      }
+
+      /* Meta */
+      .meta {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 16px 0 26px;
+      }
+
+      .chip {
+        display: inline-block;
+        background: #eef2ff;
+        color: #4f46e5;
+        padding: 8px 12px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid #e0e7ff;
+      }
+
+      /* Footer */
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 18px;
+        margin-top: 28px;
+      }
+
+      .sign {
+        text-align: center;
+        flex: 1 1 33%;
+      }
+
+      .sign img {
+        height: 40px;
+        display: block;
+        margin: 0 auto 6px;
+      }
+
+      .sign .line {
+        width: 70%;
+        height: 1px;
+        background: #cbd5e1;
+        margin: 8px auto 6px;
+      }
+
+      .sign .label {
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      .seal {
+        flex: 0 0 auto;
+        width: 110px;
+        height: 110px;
+        border-radius: 9999px;
+        background: radial-gradient(circle at 30% 30%, #ffffff, #e0e7ff),
+          conic-gradient(from 0deg, #4f46e5, #6366f1, #4f46e5);
+        box-shadow: inset 0 0 0 8px #ffffff, 0 6px 18px rgba(79, 70, 229, 0.25);
+        position: relative;
+      }
+
+      .seal-inner {
+        position: absolute;
+        inset: 10px;
+        border-radius: 9999px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #6366f1;
+        color: #4f46e5;
+        font-weight: 900;
+        font-size: 13px;
+        text-align: center;
+        padding: 6px;
+      }
+
+      /* Print friendliness */
+      @media print {
+        body {
+          background: #ffffff;
+          padding: 0;
+        }
+        .sheet {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <div class="frame">
+        <div class="inner-frame">
+          <div class="header">
+            <div class="brand">
+              <img
+                src="https://dummyimage.com/200x60/4f46e5/ffffff&text=CodeZone+LMS"
+                alt="CodeZone LMS logo"
+              />
+              <div class="brand-name">CodeZone LMS</div>
+            </div>
+            <div class="badge">Official Certificate</div>
+          </div>
+
+          <div class="title">
+            <h1>Certificate of Completion</h1>
+            <div class="subtitle">Awarded by CodeZone LMS</div>
+          </div>
+
+          <div class="recipient">
+            <div class="label">This is to certify that</div>
+            <div class="name">Sara Ahmed</div>
+            <div class="rule"></div>
+          </div>
+
+          <div class="course">
+            <div class="text">has successfully completed the course</div>
+            <div class="title">JavaScript Essentials</div>
+          </div>
+
+          <div class="meta">
+            <span class="chip">Date: May 30, 2025</span>
+            <span class="chip">ID: CZ-CE-2025-00123</span>
+            <span class="chip">Hours: 12h</span>
+            <span class="chip">Grade: 92%</span>
+          </div>
+
+          <div class="footer">
+            <div class="sign">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Signature_of_John_Hancock.svg/512px-Signature_of_John_Hancock.svg.png"
+                alt="Instructor signature"
+              />
+              <div class="line"></div>
+              <div class="label">Instructor · John Carter</div>
+            </div>
+
+            <div class="seal">
+              <div class="seal-inner">
+                CodeZone
+                <br />
+                Certified
+              </div>
+            </div>
+
+            <div class="sign">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/George_Washington_signature.svg/512px-George_Washington_signature.svg.png"
+                alt="Director signature"
+              />
+              <div class="line"></div>
+              <div class="label">Program Director · Maya Lopez</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

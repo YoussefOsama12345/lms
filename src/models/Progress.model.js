@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const ProgressSchema = new mongoose.Schema({
+const ProgressSchema = new mongoose.Schema(
+  {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -17,7 +18,7 @@ const ProgressSchema = new mongoose.Schema({
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Lesson',
-      }
+      },
     ],
 
     quizzesCompleted: [
@@ -32,9 +33,9 @@ const ProgressSchema = new mongoose.Schema({
         },
         completedAt: {
           type: Date,
-          default: Date.now
-        }
-      }
+          default: Date.now,
+        },
+      },
     ],
 
     assignmentsSubmitted: [
@@ -45,32 +46,32 @@ const ProgressSchema = new mongoose.Schema({
         },
         submittedAt: {
           type: Date,
-          default: Date.now
+          default: Date.now,
         },
         grade: {
           type: String,
-          trim: true
-        }
-      }
+          trim: true,
+        },
+      },
     ],
 
     lastAccessed: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
 
     completed: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
-)
+);
 
 ProgressSchema.index({ user: 1, course: 1 }, { unique: true });
 
-const Progress = mongoose.model('Progress',ProgressSchema)
+const Progress = mongoose.model('Progress', ProgressSchema);
 
-module.exports = Progress
+module.exports = Progress;

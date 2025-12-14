@@ -1,6 +1,6 @@
 const categoryService = require('../services/category.service');
 const { validateCategory } = require('../validators/category.validator');
-const STATUS_CODES = require('../constants/statusCodes');
+const STATUS_CODES = require('../constants/status.constants');
 
 const getAllCategories = async (req, res) => {
   try {
@@ -44,7 +44,7 @@ const getCategoryById = async (req, res) => {
 
 const createCategory = async (req, res) => {
   try {
-    const validatedData = validateCategory(req.body)
+    const validatedData = validateCategory(req.body);
     const category = await categoryService.createCategory(validatedData);
     res.status(STATUS_CODES.CREATED).json({
       success: true,
@@ -118,6 +118,6 @@ const categoryController = {
   createCategory,
   updateCategory,
   deleteCategory,
-}
+};
 
-module.exports = categoryController
+module.exports = categoryController;

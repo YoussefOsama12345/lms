@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Share your feedback · CodeZone LMS</title>
+    <style>
+      /* Brand colors (match welcome) */
+      /* Primary: #4f46e5  Secondary: #6366f1  Accent: #eef2ff */
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: #f4f6fb;
+        font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        color: #334155;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .container {
+        max-width: 640px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+        padding: 40px 24px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 26px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .header p {
+        margin: 8px 0 0;
+        font-size: 15px;
+        color: #e0e7ff;
+      }
+
+      /* Content */
+      .content {
+        padding: 26px 24px;
+      }
+
+      .content h2 {
+        font-size: 20px;
+        margin: 0 0 10px;
+        color: #0f172a;
+      }
+
+      .content p {
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0 0 18px;
+        color: #475569;
+      }
+
+      /* Card */
+      .card {
+        position: relative;
+        background: linear-gradient(180deg, #f8fafc, #ffffff);
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 18px 18px 18px 26px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        margin-bottom: 14px;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: 0;
+        bottom: 0;
+        width: 8px;
+        border-radius: 12px 0 0 12px;
+        background: #4f46e5;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+          0 0 0 1px rgba(0, 0, 0, 0.02);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+        color: #0f172a;
+      }
+
+      .card p {
+        margin: 0 0 12px;
+        font-size: 14px;
+        color: #475569;
+      }
+
+      /* CTA */
+      .cta {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .button {
+        background: #4f46e5;
+        color: #ffffff;
+        padding: 12px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        display: inline-block;
+        transition: background 0.2s ease, transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .button:hover {
+        background: #4338ca;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+      }
+
+      /* Rating stars */
+      .rating {
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      .rating .star {
+        display: inline-block;
+        margin: 0 2px;
+        font-size: 22px;
+        color: #cbd5e1;
+        text-decoration: none;
+        transition: color 0.15s ease, transform 0.15s ease;
+      }
+
+      .rating .star:hover {
+        color: #f59e0b;
+        transform: translateY(-1px) scale(1.1);
+      }
+
+      .rating .star:focus {
+        outline: none;
+        color: #f59e0b;
+        box-shadow: 0 0 0 2px #e0e7ff;
+        border-radius: 4px;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #6b7280;
+        padding: 20px 16px;
+        background: #f8fafc;
+      }
+
+      .footer a {
+        color: #4f46e5;
+      }
+
+      .social-icons {
+        margin: 10px 0 6px;
+      }
+      .social-icons a {
+        display: inline-block;
+        margin: 0 6px;
+      }
+
+      .social-icons img {
+        width: 20px;
+        height: 20px;
+        opacity: 0.92;
+      }
+
+      .links {
+        margin: 10px 0;
+      }
+
+      .links a {
+        color: #475569;
+        margin: 0 8px;
+      }
+      
+      .address {
+        color: #94a3b8;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; background:#f4f6fb; color:#334155;">
+    <div class="container">
+      <!-- Preheader (hidden) -->
+      <div
+        style="
+          display: none;
+          visibility: hidden;
+          opacity: 0;
+          color: transparent;
+          height: 0;
+          width: 0;
+          overflow: hidden;
+          line-height: 0;
+          font-size: 0;
+        "
+      >
+        Rate your experience with {{course_title}} on CodeZone LMS.
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <h1>How was {{course_title}}?</h1>
+        <p>Your feedback helps improve courses for everyone</p>
+      </div>
+
+      <!-- Body -->
+      <div class="content">
+        <h2>Hi {{first_name}},</h2>
+        <p>
+          Thanks for learning with us! Please take a moment to rate this course
+          and share a quick comment. Your insights help learners like you.
+        </p>
+
+        <!-- Course info (optional image) -->
+        <div class="card">
+          <table
+            role="presentation"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="border-collapse: collapse"
+          >
+            <tr>
+              <td style="width: 84px; vertical-align: top;">
+                <img
+                  src="{{#if course_image}}{{course_image}}{{else}}https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300&h=300&fit=crop&auto=format&q=80{{/if}}"
+                  alt="{{course_title}} thumbnail"
+                  width="70"
+                  height="70"
+                  style="display: block; border-radius: 12px; object-fit: cover"
+                />
+              </td>
+              <td style="padding-left: 12px; vertical-align: top;">
+                <h3
+                  style="
+                    margin: 0 0 6px;
+                    font-size: 16px;
+                    color: #0f172a;
+                  "
+                >
+                  {{course_title}}
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #64748b">
+                  Rate this course and help us improve
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- One-tap star rating -->
+        <div class="card">
+          <h3>Rate this course</h3>
+          <div class="rating">
+            <a
+              href="{{feedback_url}}?course={{course_id}}&score=1&source=email-star"
+              class="star"
+              title="Rate 1 star"
+              aria-label="Rate 1 star"
+              target="_blank"
+              >★</a
+            >
+            <a
+              href="{{feedback_url}}?course={{course_id}}&score=2&source=email-star"
+              class="star"
+              title="Rate 2 stars"
+              aria-label="Rate 2 stars"
+              target="_blank"
+              >★</a
+            >
+            <a
+              href="{{feedback_url}}?course={{course_id}}&score=3&source=email-star"
+              class="star"
+              title="Rate 3 stars"
+              aria-label="Rate 3 stars"
+              target="_blank"
+              >★</a
+            >
+            <a
+              href="{{feedback_url}}?course={{course_id}}&score=4&source=email-star"
+              class="star"
+              title="Rate 4 stars"
+              aria-label="Rate 4 stars"
+              target="_blank"
+              >★</a
+            >
+            <a
+              href="{{feedback_url}}?course={{course_id}}&score=5&source=email-star"
+              class="star"
+              title="Rate 5 stars"
+              aria-label="Rate 5 stars"
+              target="_blank"
+              >★</a
+            >
+          </div>
+          <p style="font-size: 13px; color: #64748b">
+            Tap a star to rate instantly, or use the button below to leave a full
+            review.
+          </p>
+        </div>
+
+        <!-- Full feedback CTA -->
+        <div class="card">
+          <h3>Leave a full review</h3>
+          <p>
+            Tell us what you liked, what could be better, and any ideas for
+            improvement.
+          </p>
+          <div class="cta">
+            <a
+              href="{{feedback_url}}?course={{course_id}}&source=email-cta"
+              target="_blank"
+              class="button"
+              >Start feedback</a
+            >
+          </div>
+          <p style="margin-top: 12px; font-size: 13px; color: #64748b">
+            If the button doesn’t work, copy and paste this URL into your browser:
+          </p>
+          <p
+            style="word-break: break-all; font-size: 12px; color: #4f46e5"
+          >
+            {{feedback_url}}?course={{course_id}}&source=email-cta
+          </p>
+        </div>
+
+        <!-- Tip -->
+        <div
+          style="
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-top: 16px;
+            color: #475569;
+          "
+        >
+          💡 Tip: Reply to this email if you’d like our team to follow up directly.
+        </div>
+
+        <p style="margin-top: 16px">
+          Need help? Contact us at
+          <a href="mailto:{{support_email}}" style="color: #4f46e5">
+            {{support_email}}
+          </a>
+        </p>
+      </div>
+
+      <!-- Footer (matching welcome) -->
+      <div class="footer">
+        <div class="social-icons">
+          <a href="https://linkedin.com/company/codezone" target="_blank">
+            <img
+              src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
+              alt="LinkedIn icon"
+              role="img"
+              aria-label="LinkedIn"
+            />
+          </a>
+          <a href="https://facebook.com/codezone" target="_blank">
+            <img
+              src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg"
+              alt="Facebook icon"
+              role="img"
+              aria-label="Facebook"
+            />
+          </a>
+          <a href="https://instagram.com/codezone" target="_blank">
+            <img
+              src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+              alt="Instagram icon"
+              role="img"
+              aria-label="Instagram"
+            />
+          </a>
+          <a href="https://x.com/codezone" target="_blank">
+            <img
+              src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg"
+              alt="X (formerly Twitter) icon"
+              role="img"
+              aria-label="X (formerly Twitter)"
+            />
+          </a>
+          <a href="https://tiktok.com/@codezone" target="_blank">
+            <img
+              src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg"
+              alt="TikTok icon"
+              role="img"
+              aria-label="TikTok"
+            />
+          </a>
+          <a href="https://youtube.com/@codezone" target="_blank">
+            <img
+              src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg"
+              alt="YouTube icon"
+              role="img"
+              aria-label="YouTube"
+            />
+          </a>
+        </div>
+        <div class="links">
+          <a href="https://codezone.com">Website</a>
+          <a href="https://codezone.com/help">Help Center</a>
+          <a href="https://codezone.com/settings/email">Email preferences</a>
+          <a href="https://codezone.com/unsubscribe">Unsubscribe</a>
+        </div>
+        <p>
+          Need help? Contact us at
+          <a href="mailto:support@codezone.com">support@codezone.com</a>
+        </p>
+        <p class="address">123 Learning Ave, Knowledge City, Earth</p>
+        <p>© 2025 CodeZone LMS</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,1 +1,1 @@
-const Progress = require('../models/Progress.model')
+const Progress = require('../models/Progress.model');

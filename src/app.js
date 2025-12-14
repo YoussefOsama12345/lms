@@ -1,67 +1,55 @@
 const express = require('express');
-const connectDB = require('./config/db');
-const loggerMiddleware = require('./utils/logger');
 const helmet = require('helmet');
 const cors = require('cors');
 
-// queues
-const emailQueue = require('./jobs/queues/emailQueue');
-const certificateQueue = require('./jobs/queues/certificateQueue');
-const enrollmentQueue = require('./jobs/queues/enrollmentQueue');
+
 
 // Create Express app instance
 const app = express();
 
-// Bull Board
-const { createBullBoard } = require('@bull-board/api');
-const { ExpressAdapter } = require('@bull-board/express');
-const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
-
-// install bull board
-const serverAdapter = new ExpressAdapter();
-serverAdapter.setBasePath('/api/admin/queues');
-
-// Create Bull Board with error handling
-try {
-  createBullBoard({
-    queues: [
-      new BullMQAdapter(emailQueue),
-      new BullMQAdapter(certificateQueue),
-      new BullMQAdapter(enrollmentQueue),
-    ],
-    serverAdapter,
-  });
-  console.log('Bull Board initialized successfully');
-} catch (error) {
-  console.error('Error initializing Bull Board:', error);
-}
-
-// Connect to DB
-connectDB();
-
 // Middleware
-app.use(loggerMiddleware.httpLogger)
-app.use(loggerMiddleware.httpLogger)
-app.use(loggerMiddleware.morganToWinston)
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
-// Bull Board route
-app.use('/api/admin/queues', serverAdapter.getRouter());
 
 // Import routes
+// Import routes
+// const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
 const courseRoutes = require('./routes/course.routes');
-const categoryRoutes = require('./routes/category.routes');
+// const categoryRoutes = require('./routes/category.routes');
+// const assignmentRoutes = require('./routes/assignment.routes');
+// const certificateRoutes = require('./routes/certificate.routes');
+// const couponRoutes = require('./routes/coupon.routes');
+// const enrollmentRoutes = require('./routes/enrollment.routes');
+// const lessonRoutes = require('./routes/lesson.routes');
+// const orderRoutes = require('./routes/order.routes');
+// const progressRoutes = require('./routes/progress.routes');
+// const quizRoutes = require('./routes/quiz.routes');
+// const reviewRoutes = require('./routes/review.routes');
+// const sectionRoutes = require('./routes/section.routes');
+// const uploadRoutes = require('./routes/upload.routes');
+// const wishlistRoutes = require('./routes/wishlist.routes');
 
 
+app.use('/api', userRoutes);
 app.use('/api', courseRoutes);
-app.use('/api', categoryRoutes);
+
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
 // Root route
 app.get('/api', (req, res) => {
   res.send('Welcome to the CodeZone API');
 });
-
 
 module.exports = app;

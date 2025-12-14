@@ -19,7 +19,7 @@ redis.on('ready', () => {
   console.log('Redis is Ready to use');
 });
 
-redis.on('error', (err) => {
+redis.on('error', err => {
   console.error('Redis error:', err);
 });
 
@@ -30,7 +30,6 @@ redis.on('reconnecting', () => {
 redis.on('end', () => {
   console.warn('Redis is closing...');
 });
-
 
 // Handle app shutdown
 process.on('SIGINT', async () => {
